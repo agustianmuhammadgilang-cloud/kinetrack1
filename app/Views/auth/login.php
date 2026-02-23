@@ -71,7 +71,7 @@
 
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-slate-800 mb-2">Selamat Datang Pegawai!</h1>
-            <p class="text-slate-500 text-sm">Silakan masuk untuk mengelola Sasaran Kinerja Pegawai (SKP) Anda.</p>
+            <p class="text-slate-500 text-sm">Silakan masuk</p>
         </div>
 
         <?php if (session()->getFlashdata('error')) : ?>
@@ -160,7 +160,7 @@
                 </div>
                 <h2 class="text-4xl font-bold leading-tight">Kelola Kinerja dengan Akurat.</h2>
                 <p class="text-blue-100 text-lg font-light max-w-md">
-                    Platform terpadu untuk penyusunan SKP, pelaporan harian, dan evaluasi kinerja pegawai.
+                   Portal autentikasi pengguna untuk mengakses sistem sesuai peran masing-masing.
                 </p>
             </div>
 
