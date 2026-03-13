@@ -5,7 +5,6 @@ namespace App\Controllers\Pimpinan;
 use App\Controllers\BaseController;
 use App\Models\PicModel;
 use App\Models\IndikatorModel;
-use App\Models\DokumenModel;
 use App\Models\TahunAnggaranModel;
 
 class Dashboard extends BaseController
@@ -22,7 +21,6 @@ class Dashboard extends BaseController
     {
         $picModel        = new PicModel();
         $indikatorModel  = new IndikatorModel();
-        $dokumenModel    = new DokumenModel();
         $tahunModel      = new TahunAnggaranModel();
 
         /* ===============================
@@ -54,13 +52,6 @@ if ($tahunAktif) {
         ->where('sasaran_strategis.tahun_id', $tahunAktif['id'])
         ->countAllResults();
 }
-
-
-        /* ===============================
-         * CARD 3 — JUMLAH DOKUMEN
-         * =============================== */
-        $totalDokumen = $dokumenModel->countAllResults();
-
         /* ===============================
          * KIRIM KE VIEW
          * =============================== */
@@ -68,7 +59,7 @@ if ($tahunAktif) {
             'title'           => 'Dashboard Pimpinan',
             'totalPic'        => $totalPic,
             'totalIndikator'  => $totalIndikator,
-            'totalDokumen'    => $totalDokumen,
+            'tahunAktif'      => $tahunAktif,
         ]);
     }
 }

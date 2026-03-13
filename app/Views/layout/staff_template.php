@@ -185,7 +185,7 @@ function fileUpload() {
     <nav class="flex-1 overflow-y-auto mt-4 px-3 space-y-1">
 
     <!-- DASHBOARD -->
-    <a href="<?= base_url('staff') ?>"
+    <a href="<?= base_url('staff/dashboard') ?>"
        class="sidebar-link <?= service('uri')->getSegment(1)=='staff' && service('uri')->getSegment(2)==null ? 'active':'' ?>">
         <svg class="sidebar-icon"><use href="#chart-bar"/></svg>
         <span>Dashboard</span>
@@ -219,105 +219,6 @@ function fileUpload() {
         </span>
     </span>
 </a>
-
-
-
-    <!-- DOKUMEN GROUP -->
-   <?php
-    // Cek apakah segmen 1 adalah document-request ATAU segmen 2 adalah dokumen/kategori
-    $docActive = (service('uri')->getSegment(1) == 'document-request') || 
-                 in_array(service('uri')->getSegment(2), ['dokumen', 'kategori']);
-?>
-
-    <div x-data="{ open: <?= $docActive ? 'true':'false' ?> }" class="mt-2">
-
-        <!-- PARENT -->
-        <button @click="open = !open"
-            class="sidebar-link w-full justify-between <?= $docActive ? 'active':'' ?>">
-            <div class="flex items-center gap-3">
-                <svg class="sidebar-icon"><use href="#folder"/></svg>
-                <span>Dokumen</span>
-            </div>
-
-            <svg
-    class="w-4 h-4 text-white/80 transition-transform"
-    stroke="currentColor"
-    fill="none"
-    :class="open && 'rotate-90'">
-    <use href="#arrow-left-on-rectangle"/>
-</svg>
-
-        </button>
-
-        <!-- SUBMENU -->
-        <?php
-$uri = service('uri');
-$seg2 = $uri->getSegment(2, ''); // aman
-$seg3 = $uri->getTotalSegments() >= 3 ? $uri->getSegment(3) : ''; // aman
-?>
-<div x-show="open" x-transition class="submenu space-y-1">
-
-    <a href="<?= base_url('staff/dokumen') ?>"
-       class="submenu-link <?= $seg2=='dokumen' && $seg3=='' ? 'active':'' ?>">
-        Dokumen Kinerja
-    </a>
-
-    <a href="<?= base_url('staff/kategori/ajukan') ?>"
-       class="submenu-link <?= $seg3=='ajukan' ? 'active':'' ?>">
-        Pengajuan Kategori Dokumen
-    </a>
-
-    <a href="<?= base_url('document-request') ?>"
-   class="submenu-link <?= service('uri')->getSegment(1)=='document-request' ? 'active':'' ?>">
-    Permintaan Dokumen
-    </a>
-
-    <a href="<?= base_url('staff/dokumen/arsip') ?>"
-       class="submenu-link <?= $seg3=='arsip' ? 'active':'' ?>">
-        Arsip
-    </a>
-
-    <!-- DIVIDER -->
-    <div class="mt-3 pt-2 border-t border-white/10">
-        <div class="px-2 mb-1 text-[11px] tracking-widest uppercase text-white/50">
-            Jenis Dokumen
-        </div>
-
-        <a href="<?= base_url('staff/dokumen/saya') ?>"
-           class="submenu-link <?= $seg3=='saya' ? 'active':'' ?>">
-            Dokumen Saya
-        </a>
-
-<a href="<?= base_url('staff/dokumen/unit') ?>" 
-   class="submenu-link <?= $seg3=='unit' ? 'active':'' ?>">
-    Dokumen Unit
-    <span id="badge-unit"
-          class="ml-2 px-2 py-0.5 
-                 bg-red-100 text-red-700 
-                 text-xs font-medium 
-                 rounded hidden">
-        Baru
-    </span>
-</a>
-
-
-<a href="<?= base_url('staff/dokumen/public') ?>" 
-   class="submenu-link <?= $seg3=='public' ? 'active':'' ?>">
-    Dokumen Publik
-    <span id="badge-public"
-          class="ml-2 px-2 py-0.5 
-                 bg-red-100 text-red-700 
-                 text-xs font-medium 
-                 rounded hidden">
-        Baru
-    </span>
-</a>
-
-
-    </div>
-</div>
-
-    </div>
 
 <!-- GRAFIK KINERJA -->
 <a href="<?= base_url('staff/grafik') ?>"

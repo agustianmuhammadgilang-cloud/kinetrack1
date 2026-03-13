@@ -30,23 +30,24 @@
         background: #cbd5e1;
         border-radius: 4px;
     }
+    [x-cloak] { display: none !important; }
 </style>
 
-<div class="min-h-screen bg-slate-50 px-6 py-8 font-sans text-slate-800">
+<div class="min-h-screen bg-slate-50 px-4 sm:px-6 py-8 font-sans text-slate-800">
 
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-10">
         <div>
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">
                 Dashboard Admin
             </h1>
-            <p class="text-slate-500 mt-1 text-sm">
+            <p class="text-slate-500 mt-1 text-sm italic">
                 Sistem Manajemen Kinerja Politeknik Negeri Bandung
             </p>
             
             <?php if ($tahun_aktif): ?>
                 <div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 shadow-sm">
-                    <span class="flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
                     </span>
                     <span class="text-xs font-bold text-blue-800 uppercase tracking-wide">
@@ -62,7 +63,7 @@
             <?php endif; ?>
         </div>
 
-        <div class="flex items-center gap-4 self-end lg:self-center">
+        <div class="flex items-center gap-4 w-full lg:w-auto justify-end">
             <div x-data="{ open: false }" class="relative bell-group">
                 <button @click="open = !open"
                     class="relative p-2.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:bg-blue-50 hover:border-blue-300 text-slate-600 hover:text-blue-700 transition-all">
@@ -113,7 +114,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-                <div x-show="open" x-transition @click.away="open = false" style="display: none;" class="absolute right-0 mt-3 w-52 bg-white shadow-xl rounded-2xl border border-slate-100 py-2 z-50 ring-1 ring-black/5">
+                <div x-show="open" x-transition @click.away="open = false" x-cloak class="absolute right-0 mt-3 w-52 bg-white shadow-xl rounded-2xl border border-slate-100 py-2 z-50 ring-1 ring-black/5">
                     <div class="px-2 space-y-1">
                         <a href="<?= base_url('admin/profile') ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-blue-700 transition-all">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
@@ -170,14 +171,13 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-        
-        <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="lg:col-span-3 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
             <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
                 <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
                 Menu Akses Cepat
             </h3>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
                 <a href="<?= base_url('admin/users') ?>" class="group bg-slate-50 p-4 rounded-xl border border-slate-100 hover:bg-white hover:border-blue-400 hover:shadow-md transition-all flex flex-col gap-3">
                     <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
@@ -237,48 +237,6 @@
                         <p class="text-[10px] text-slate-500 mt-1 line-clamp-1">Visualisasi capaian.</p>
                     </div>
                 </a>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col h-full">
-            <h3 class="font-bold text-slate-800 mb-4 text-sm uppercase tracking-widest border-b border-slate-100 pb-2">Status Dokumen</h3>
-            <div class="space-y-3 flex-1">
-                <div class="flex items-center justify-between p-3 rounded-xl bg-orange-50 border border-orange-100 hover:shadow-sm transition-all">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 bg-white rounded-lg text-orange-500 shadow-sm">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        </div>
-                        <div>
-                            <span class="block font-bold text-slate-700 text-xs">Butuh Validasi</span>
-                            <span class="text-[10px] text-slate-400 font-bold uppercase">Pending</span>
-                        </div>
-                    </div>
-                    <span class="text-xl font-bold text-orange-600"><?= $dokumen_pending ?></span>
-                </div>
-                <div class="flex items-center justify-between p-3 rounded-xl bg-emerald-50 border border-emerald-100 hover:shadow-sm transition-all">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 bg-white rounded-lg text-emerald-600 shadow-sm">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        </div>
-                        <div>
-                            <span class="block font-bold text-slate-700 text-xs">Tervalidasi</span>
-                            <span class="text-[10px] text-slate-400 font-bold uppercase">Diterima</span>
-                        </div>
-                    </div>
-                    <span class="text-xl font-bold text-emerald-600"><?= $dokumen_valid ?></span>
-                </div>
-                <div class="flex items-center justify-between p-3 rounded-xl bg-red-50 border border-red-100 hover:shadow-sm transition-all">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 bg-white rounded-lg text-red-600 shadow-sm">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                        </div>
-                        <div>
-                            <span class="block font-bold text-slate-700 text-xs">Ditolak</span>
-                            <span class="text-[10px] text-slate-400 font-bold uppercase">Tidak Valid</span>
-                        </div>
-                    </div>
-                    <span class="text-xl font-bold text-red-600"><?= $dokumen_tidak_tervalidasi ?></span>
-                </div>
             </div>
         </div>
     </div>

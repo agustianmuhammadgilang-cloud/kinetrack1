@@ -49,7 +49,7 @@ class ActivityLogModel extends Model
      */
     public function getAllLogsWithUser($limit = 100)
 {
-    return $this->select('activity_logs.*, users.nama')
+    return $this->select('activity_logs.*, users.nama, COALESCE(activity_logs.role, users.role) as role')
         ->join('users', 'users.id = activity_logs.user_id', 'left')
         ->orderBy('COALESCE(activity_logs.restored_at, activity_logs.created_at)', 'DESC', false)
         ->findAll($limit);

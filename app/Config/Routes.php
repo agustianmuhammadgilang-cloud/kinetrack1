@@ -12,33 +12,7 @@ $routes->get('/', 'Landing::index');
 $routes->get('/login', 'Auth\Login::index');
 $routes->post('/login/process', 'Auth\Login::process');
 $routes->get('/logout', 'Auth\Login::logout');
-// =============================
-// DOCUMENT REQUEST (GLOBAL & ATASAN)
-// =============================
 
-// Tambahkan alias group untuk atasan agar link di view tidak mati
-$routes->group('atasan/document-request', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'DocumentRequestController::index');
-    $routes->get('my-status', 'DocumentRequestController::status');
-    $routes->post('store', 'DocumentRequestController::store');
-});
-
-// Group original (untuk Staff atau akses umum)
-$routes->group('document-request', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'DocumentRequestController::index');
-    $routes->get('my-status', 'DocumentRequestController::status');
-    $routes->post('store', 'DocumentRequestController::store');
-
-    // KHUSUS STAFF (Inbox & Approval)
-    $routes->group('', ['filter' => 'role:staff'], function($routes) {
-        $routes->get('incoming', 'DocumentRequestController::inbox');
-        $routes->post('approve/(:num)', 'DocumentRequestController::approve/$1');
-        $routes->post('reject/(:num)', 'DocumentRequestController::reject/$1');
-    });
-});
-
-// Akses file lampiran (Global Auth)
-$routes->get('uploads/request/(:any)', 'DocumentRequestController::viewAttachment/$1', ['filter' => 'auth']);
 
 // ==========================
 // ADMIN
@@ -131,65 +105,50 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('pengajuan-kategori/approve/(:num)', 'Admin\PengajuanKategori::approve/$1');
     $routes->get('pengajuan-kategori/reject/(:num)', 'Admin\PengajuanKategori::reject/$1');
     // Kelola Profile
-    
-
-    // DOKUMEN TERVALIDASI
-    // LEVEL 1 — KATEGORI
-    $routes->get('dokumen-tervalidasi', 'Admin\DokumenTervalidasi::kategori');
-
-    // LEVEL 2 — DOKUMEN PER KATEGORI
-    $routes->get(
-        'dokumen-tervalidasi/(:num)',
-        'Admin\DokumenTervalidasi::dokumen/$1'
-    );
-
+    // =====================
+    // DETAIL PENGUKURAN
+    // =====================
     $routes->get(
     'pengukuran/detail/(:num)/(:num)/(:num)',
     'Admin\Pengukuran::detail/$1/$2/$3'
 );
 
+    // ACTIVITY LOG
+    $routes->get('activity-logs', 'Admin\ActivityLogController::index');
+    $routes->get('activity-logs/archive', 'Admin\ActivityLogArchiveController::index');
+    $routes->post('activity-logs/archive/backup', 'Admin\ActivityLogArchiveController::backup');
+    $routes->post('activity-logs/archive/restore', 'Admin\ActivityLogArchiveController::restore');
+    $routes->get('activity-logs/schedule', 'Admin\ActivityLogScheduleController::index');
+    $routes->post('activity-logs/schedule', 'Admin\ActivityLogScheduleController::update');
+    $routes->get('activity-logs/backup', 'Admin\ActivityLogBackupController::index');
+    $routes->post('activity-logs/backup/run', 'Admin\ActivityLogBackupController::backup');
+    $routes->post('activity-logs/backup/restore', 'Admin\ActivityLogBackupController::restore');
+    $routes->get('activity-logs/cleanup', 'Admin\LogCleanupController::index');
+    $routes->post('activity-logs/cleanup/run', 'Admin\LogCleanupController::run');
+    $routes->get('activity-logs/backup/download/(:any)', 'Admin\ActivityLogBackupController::download/$1');
+    $routes->get('activity-logs/reminder', 'Admin\ActivityLogReminderController::index');
 
+    $routes->post('users/delete/(:num)', 'Admin\User::delete/$1');
+
+    // =====================
+    // PIC - EXPORT PDF
+    // =====================
+    $routes->get('pic/export_pdf', 'Admin\PicController::exportPdf');
+
+    //excel user
+    $routes->get('users/export-excel', 'Admin\User::exportExcel');
+    //perjanjian kinerja
+    $routes->get('perjanjian-kinerja/export-excel', 'Admin\PerjanjianKinerja::exportExcel');
+    //manajemen pic
+    $routes->get('pic/export-excel', 'Admin\PicController::exportExcel');
 
 });
-
-$routes->get(
-    'admin/dokumen-tervalidasi',
-    'Admin\DokumenTervalidasi::kategori'
-);
-
-$routes->get(
-    'admin/dokumen-tervalidasi/(:num)',
-    'Admin\DokumenTervalidasi::dokumen/$1'
-);
-
-$routes->post(
-    'admin/dokumen-tervalidasi/update-kategori/(:num)',
-    'Admin\DokumenTervalidasi::updateKategori/$1'
-);
-    // DOKUMEN TERVALIDASI
-
-// ADMIN - DETAIL BIDANG Tidak Berfungsi
-$routes->group('admin/bidang', ['filter' => 'auth'], function($routes) {
-
-    $routes->get('detail/export/bidang/(:num)', 'Admin\BidangDetail::exportBidang/$1');
-    $routes->get('detail/export/(:num)', 'Admin\BidangDetail::exportPegawai/$1');
-    $routes->get('pegawai/(:num)', 'Admin\BidangDetail::pegawaiDetail/$1');
-    $routes->get('detail/(:num)', 'Admin\BidangDetail::index/$1');
-});
-
-$routes->get('admin/bidang-select', 'Admin\BidangDetail::select', ['filter' => 'auth']);
-// ADMIN - DETAIL BIDANG Tidak Berfungsi
-
 
 // STAFF
 $routes->group('staff', ['filter' => 'auth'], function($routes) {
-    // Dashboard & Laporan Activity Log
-    $routes->get('/', 'Staff\Dashboard::index');  
-    $routes->get('activity-logs', 'Staff\ActivityLogController::index');
+    // Dashboard & Activity Log
     $routes->get('dashboard', 'Staff\Dashboard::index');
-    $routes->get('laporan', 'Staff\Laporan::index');
-    $routes->get('laporan/create', 'Staff\Laporan::create');
-    $routes->post('laporan/store', 'Staff\Laporan::store');
+    $routes->get('activity-logs', 'Staff\ActivityLogController::index');
     // Progress & Report
     $routes->get('task/progress/(:num)/(:num)', 'Staff\TaskController::progress/$1/$2');
     $routes->get('task/report/(:num)/(:num)', 'Staff\TaskController::report/$1/$2');
@@ -198,33 +157,27 @@ $routes->group('staff', ['filter' => 'auth'], function($routes) {
     // Profile
     $routes->get('profile', 'Staff\Profile::index');
     $routes->post('profile/update', 'Staff\Profile::update');
-    // Pengajuan Kategori Dokumen
-    $routes->get('kategori/ajukan', 'Staff\PengajuanKategori::create');
-    $routes->post('kategori/ajukan/store', 'Staff\PengajuanKategori::store');
-    $routes->get('rekomendasi', 'Staff\TaskController::rekomendasi');
 
+    // Rekomendasi
+    $routes->get('rekomendasi', 'Staff\TaskController::rekomendasi');
 });
 
 // ATASAN
 $routes->get('atasan', 'Atasan\Dashboard::index', ['filter' => 'auth']);
-
 $routes->group('atasan', ['filter' => 'auth'], function($routes){
     // Profile
     $routes->get('profile', 'Atasan\Profile::index');
     $routes->post('profile/update', 'Atasan\Profile::update');
-    //laporan
-    $routes->get('laporan', 'Atasan\Laporan::index');
-    $routes->get('laporan/detail/(:num)', 'Atasan\Laporan::detail/$1');
-    $routes->get('laporan/approve/(:num)', 'Atasan\Laporan::approve/$1');
-    $routes->post('laporan/reject/(:num)', 'Atasan\Laporan::reject/$1');
     //notifications
     $routes->get('notifications/pending-count', 'Atasan\Notifications::pendingCount');
     $routes->get('notifications/list', 'Atasan\Notifications::list');
     // Cari baris ini dan ubah 'Task' menjadi 'TaskController'
 $routes->get('rekomendasi', 'Atasan\TaskController::rekomendasi');
 });
+
 // =============================
 // AJAX ROUTES
+// =============================
 // Admin SASARAN & INDIKATOR - AJAX
 $routes->get('admin/indikator/getKode/(:num)', 'Admin\Indikator::getKode/$1');
 $routes->get('admin/sasaran/getKode/(:num)', 'Admin\Sasaran::getKode/$1');
@@ -233,7 +186,6 @@ $routes->get('admin/pic/getSasaran', 'Admin\PicController::getSasaran');
 $routes->get('admin/pic/getIndikator', 'Admin\PicController::getIndikator');
 $routes->get('admin/pic/getJabatan', 'Admin\PicController::getJabatan');
 $routes->get('admin/pic/getPegawai', 'Admin\PicController::getPegawai');
-
 // Admin PIC
 $routes->get('admin/pic', 'Admin\PicController::index');
 $routes->get('admin/pic/create', 'Admin\PicController::create');
@@ -241,8 +193,6 @@ $routes->post('admin/pic/store', 'Admin\PicController::store');
 $routes->get('admin/pic/edit/(:num)', 'Admin\PicController::edit/$1');
 $routes->post('admin/pic/update/(:num)', 'Admin\PicController::update/$1');
 $routes->get('admin/pic/delete/(:num)', 'Admin\PicController::delete/$1');
-
-
 /// Staff Task
 $routes->group('staff', ['filter' => 'auth'], function($routes) {
     $routes->get('task', 'Staff\TaskController::index');             // daftar task PIC staff
@@ -254,23 +204,17 @@ $routes->group('staff', ['filter' => 'auth'], function($routes) {
 // =============================
 // NOTIFICATIONS
 // =============================
-
 // Jumlah unread
 $routes->get('notifications/unread-count', 'Notifications::unreadCount');
-
 // List notif (default 10 atau pakai parameter)
 $routes->get('notifications/list', 'Notifications::list');
 $routes->get('notifications/list/(:num)', 'Notifications::list/$1');
-
 // === PENTING: Notifikasi terbaru untuk toast popup ===
 $routes->get('notifications/latest', 'Notifications::latest'); // <-- FIX
-
 // Mark single read
 $routes->post('notifications/mark/(:num)', 'Notifications::mark/$1');
-
 // Mark all read
 $routes->post('notifications/mark-all', 'Notifications::markAll');
-
 // Pending task count (jika dipakai staff)
 $routes->get('notifications/pending-count', 'Notifications::pendingTaskCount');
 
@@ -284,59 +228,21 @@ $routes->group('admin/pengukuran', function($routes) {
     // ==== Tambahkan ini ====
     $routes->get('deleteFile/(:num)/(:num)', 'Admin\Pengukuran::deleteFile/$1/$2');
 });
-
-
 $routes->group('admin/tw', ['namespace' => 'App\Controllers\Admin'], function($routes){
     // TW Controller
     $routes->get('/', 'TwController::index');
     $routes->get('toggle/(:num)', 'TwController::toggle/$1');
 });
-
 $routes->get(
     // Report Pengukuran
     'admin/pengukuran/output/report/(:num)/(:num)/(:segment)',
     'Admin\Pengukuran::report/$1/$2/$3'
 );
-
 $routes->get(
     // Report Task Staff
     'staff/task/report/(:num)/(:num)/(:segment)',
     'Staff\TaskController::report/$1/$2/$3'
 );
-
-$routes->group('staff', ['filter' => 'auth'], function ($routes) {
-
-    // =====================
-    // DOKUMEN
-    // =====================
-
-    // Riwayat semua dokumen milik user
-    $routes->get('dokumen', 'Staff\Dokumen::index');
-
-    // Dokumen Personal (Dokumen Saya)
-    $routes->get('dokumen/saya', 'Staff\Dokumen::personal');
-
-    // Dokumen Unit
-    $routes->get('dokumen/unit', 'Staff\Dokumen::unit');
- 
-    // Create & Store
-    $routes->get('dokumen/create', 'Staff\Dokumen::create');
-    $routes->post('dokumen/store', 'Staff\Dokumen::store');
-
-    // Revisi
-    $routes->get('dokumen/resubmit/(:num)', 'Staff\Dokumen::resubmit/$1');
-    $routes->post('dokumen/resubmit/(:num)', 'Staff\Dokumen::processResubmit/$1');
-
-    // Arsip
-    $routes->get('dokumen/arsip', 'Staff\Dokumen::arsip');
-     $routes->get('dokumen/public', 'Staff\Dokumen::public');
-
-      // ✅ Tambahkan route export PDF di sini
-    $routes->get('dokumen/export_pdf', 'Staff\Dokumen::exportArsipPdf');
-    $routes->get('dokumen/exportArsipExcel', 'Staff\Dokumen::exportArsipExcel');
-
-});
-
 
 // =======================
 // ATASAN ROUTES (FINAL)
@@ -352,36 +258,10 @@ $routes->group('atasan', ['filter' => 'auth'], function ($routes) {
      $routes->get('activity-log', 'Atasan\ActivityLogController::index');
 
     // =====================
-    // LAPORAN
-    // =====================
-    $routes->get('laporan', 'Atasan\Laporan::index');
-    $routes->get('laporan/detail/(:num)', 'Atasan\Laporan::detail/$1');
-    $routes->get('laporan/approve/(:num)', 'Atasan\Laporan::approve/$1');
-    $routes->post('laporan/reject/(:num)', 'Atasan\Laporan::reject/$1');
-
-    // =====================
     // NOTIFICATIONS
     // =====================
     $routes->get('notifications/pending-count', 'Atasan\Notifications::pendingCount');
     $routes->get('notifications/list', 'Atasan\Notifications::list');
-
-    // =====================
-    // DOKUMEN
-    // =====================
-    $routes->get('dokumen', 'Atasan\Dokumen::index');
-    $routes->get('dokumen/unit', 'Atasan\Dokumen::unit');
-    $routes->get('dokumen/review/(:num)', 'Atasan\Dokumen::review/$1');
-    $routes->post('dokumen/approve/(:num)', 'Atasan\Dokumen::approve/$1');
-    $routes->post('dokumen/reject/(:num)', 'Atasan\Dokumen::reject/$1');
-    $routes->get('dokumen/public', 'Atasan\Dokumen::public');
-    $routes->get('dokumen/arsip', 'Atasan\Dokumen::arsip');
-
-    // export PDF arsip dokumen
-    $routes->get('dokumen/export_pdf', 'Atasan\Dokumen::exportArsipPdf');
-    $routes->get('dokumen/export_excel_arsip', 'Atasan\Dokumen::exportArsipExcel');
-
-    
-
     // =====================
     // ⬇️ TAMBAHAN HALAMAN BARU (DARI STAFF)
     // =====================
@@ -401,91 +281,12 @@ $routes->group('atasan', ['filter' => 'auth'], function ($routes) {
 
 });
 
-// =======================
-// ADMIN ROUTES (FINAL)
-// =======================
-$routes->post('admin/users/delete/(:num)', 'Admin\User::delete/$1');
 
-$routes->group('admin', ['filter' => 'auth'], function ($routes) {
-
-    // =====================
-    // KATEGORI DOKUMEN
-    $routes->get('kategori-dokumen', 'Admin\KategoriDokumen::index');
-    $routes->get('kategori-dokumen/create', 'Admin\KategoriDokumen::create');
-    $routes->post('kategori-dokumen/store', 'Admin\KategoriDokumen::store');
-
-    $routes->get('kategori-dokumen/edit/(:num)', 'Admin\KategoriDokumen::edit/$1');
-    $routes->post('kategori-dokumen/update/(:num)', 'Admin\KategoriDokumen::update/$1');
-
-    $routes->get('kategori-dokumen/toggle/(:num)', 'Admin\KategoriDokumen::toggleStatus/$1');
-
-$routes->get('kategori-dokumen/export', 'Admin\KategoriDokumen::export');
-$routes->get(
-    'kategori-dokumen/export-excel',
-    'Admin\KategoriDokumen::exportExcel'
-);
-
-
-
-// =====================
-// PIC - EXPORT PDF
-// =====================
-$routes->get('pic/export_pdf', 'Admin\PicController::exportPdf');
-
-//excel user
-$routes->get('users/export-excel', 'Admin\User::exportExcel');
-//perjanjian kinerja
-$routes->get('perjanjian-kinerja/export-excel', 'Admin\PerjanjianKinerja::exportExcel');
-//manajemen pic
-$routes->get('pic/export-excel', 'Admin\PicController::exportExcel');
-
-
-    // =====================
-    // DOKUMEN
-    // =====================
-
-    $routes->get('dokumen-tervalidasi', 'Admin\DokumenTervalidasi::kategori');
-    $routes->get('dokumen-tervalidasi/(:num)', 'Admin\DokumenTervalidasi::dokumen/$1');
-
-    $routes->get('dokumen-tidak-tervalidasi', 'Admin\DokumenTidakTervalidasi::kategori');
-    $routes->get('dokumen-tidak-tervalidasi/(:num)', 'Admin\DokumenTidakTervalidasi::dokumen/$1');
-
-    // DOKUMEN TIDAK TERVALIDASI
-    $routes->get('dokumen-tidak-tervalidasi', 'Admin\DokumenTidakTervalidasi::kategori');
-
-    $routes->get(
-        'dokumen-tidak-tervalidasi/dokumen/(:num)',
-        'Admin\DokumenTidakTervalidasi::dokumen/$1'
-    );
-    
-    // =====================
-    // ACTIVITY LOG
-    // =====================
-    $routes->get('activity-logs', 'Admin\ActivityLogController::index');
-
-    // Log arsip
-    $routes->get('activity-logs/archive', 'Admin\ActivityLogArchiveController::index');
-    // Backup & Restore
-    $routes->post('activity-logs/archive/backup', 'Admin\ActivityLogArchiveController::backup');
-$routes->post('activity-logs/archive/restore', 'Admin\ActivityLogArchiveController::restore');
-//Log Schedule
-$routes->get('activity-logs/schedule', 'Admin\ActivityLogScheduleController::index');
-$routes->post('activity-logs/schedule', 'Admin\ActivityLogScheduleController::update');
-// Log Backup & Restore
-$routes->get('activity-logs/backup', 'Admin\ActivityLogBackupController::index');
-$routes->post('activity-logs/backup/run', 'Admin\ActivityLogBackupController::backup');
-$routes->post('activity-logs/backup/restore', 'Admin\ActivityLogBackupController::restore');
-// Log Cleanup
-$routes->get('activity-logs/cleanup', 'Admin\LogCleanupController::index');
-$routes->post('activity-logs/cleanup/run', 'Admin\LogCleanupController::run');
-// Log Backup Download
-$routes->get('activity-logs/backup/download/(:any)', 'Admin\ActivityLogBackupController::download/$1');
 
 // =====================
 // SYSTEM REMINDER (AUDIT)
 // =====================
 $routes->get('activity-logs/reminder', 'Admin\ActivityLogReminderController::index');
-});
 // ==========================
 // GRAFIK KINERJA - ADMIN
 // ==========================
@@ -521,22 +322,6 @@ $routes->group('atasan/grafik', ['filter' => 'auth'], function($routes) {
 $routes->get('badge/pengukuran', 'BadgeController::pengukuran');
 $routes->get('badge/pengajuan', 'BadgeController::pengajuan');
 $routes->post('badge/pengajuan/mark-all', 'BadgeController::markPengajuanRead');
-$routes->get('badge/dokumen-atasan', 'BadgeController::dokumenKinerja');
-
-$routes->post('badge/dokumen-atasan/mark-all', 'BadgeController::markDokumenRead');
-
-$routes->get('badge/dokumen-unit', 'BadgeController::dokumenUnit');
-$routes->get('badge/dokumen-public', 'BadgeController::dokumenPublic');
-
-$routes->post('badge/dokumen-unit/mark-all', 'BadgeController::markDokumenUnitRead');
-$routes->post('badge/dokumen-public/mark-all', 'BadgeController::markDokumenPublicRead');
-
-// Badge Dokumen untuk STAFF
-$routes->get('badge/staff-dokumen-unit', 'BadgeController::staffDokumenUnit');
-$routes->post('badge/staff-dokumen-unit/mark-all', 'BadgeController::markStaffDokumenUnitRead');
-
-$routes->get('badge/staff-dokumen-public', 'BadgeController::staffDokumenPublic');
-$routes->post('badge/staff-dokumen-public/mark-all', 'BadgeController::markStaffDokumenPublicRead');
 
 $routes->post('admin/notifikasi/read-all', 'Admin\Dashboard::markAllRead');
 
@@ -559,11 +344,6 @@ $routes->group('pimpinan', ['filter' => 'role:pimpinan'], function($routes) {
         'pengukuran/output/detail/(:num)/(:num)/(:num)',
         'Pimpinan\Pengukuran::detail/$1/$2/$3'
     );
-
-    $routes->get('dokumen', 'DocumentRequestController::pimpinan');
-    $routes->get('dokumen/view/(:any)', 'DocumentRequestController::viewDocument/$1');
-    $routes->get('dokumen/download/(:any)', 'DocumentRequestController::downloadDocument/$1');
-
     $routes->get('profile', 'Pimpinan\Profile::index');
     $routes->post('profile/update', 'Pimpinan\Profile::update');
 });

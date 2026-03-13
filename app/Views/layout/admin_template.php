@@ -1,18 +1,3 @@
-<?php
-use App\Models\PengajuanKategoriModel;
-
-$badgePengajuan = false;
-
-if (session()->has('user_id')) {
-    $pengajuanModel = new PengajuanKategoriModel();
-
-    $badgePengajuan = $pengajuanModel
-        ->where('status', 'pending')
-        ->where('is_viewed_by_admin', 0)
-        ->countAllResults() > 0;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -334,77 +319,6 @@ $seg3 = $segments[2] ?? null;
         <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2"/>
     </symbol>
 </svg>
-
-
-       
-        <!-- MASTER DOKUMEN -->
-<div 
-    x-data="{
-        open: JSON.parse(localStorage.getItem('dropdownDokumen')) ?? false,
-        toggle() {
-            this.open = !this.open;
-            localStorage.setItem('dropdownDokumen', this.open);
-        }
-    }"
-    x-init="$watch('open', v => localStorage.setItem('dropdownDokumen', v))"
->
-
-    <button @click="toggle()"
-        class="w-full flex items-center gap-3 px-6 py-3 rounded hover:bg-white/10 transition">
-        <svg class="sidebar-icon text-white" fill="none" stroke="currentColor">
-            <use href="#folder" />
-        </svg>
-        <span class="flex-1">Dokumen</span>
-
-        <svg :class="open ? 'rotate-90' : ''"
-            class="w-4 h-4 transition-transform text-white" fill="none" stroke="currentColor">
-            <path stroke-width="2" d="M6 9l6 6 6-6"/>
-        </svg>
-    </button>
-
-    <div x-show="open" x-transition class="ml-10 flex flex-col mt-1">
-
-        <a href="<?= base_url('admin/kategori-dokumen') ?>"
-            class="px-4 py-2 rounded hover:bg-white/10 transition
-            <?= (service('uri')->getSegment(2) == 'kategori-dokumen') ? 'bg-white/20 font-semibold' : '' ?>">
-            Kategori Dokumen
-        </a>
-
-    <a href="<?= base_url('admin/pengajuan-kategori') ?>"
-        class="px-4 py-2 rounded hover:bg-white/10 transition relative
-        <?= (service('uri')->getSegment(2) == 'pengajuan-kategori') ? 'bg-white/20 font-semibold' : '' ?>">
-
-        <span class="flex items-center justify-between">
-            <span>Pengajuan Kategori</span>
-
-            <!-- BADGE MERAH -->
-            <span id="badge-pengajuan"
-                class="relative flex h-2.5 w-2.5 hidden">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
-            </span>
-        </span>
-    </a>
-
-
-
-        <a href="<?= base_url('admin/dokumen-tervalidasi') ?>"
-    class="px-4 py-2 rounded hover:bg-white/10 transition
-    <?= (service('uri')->getSegment(2) == 'dokumen-tervalidasi') ? 'bg-white/20 font-semibold' : '' ?>">
-    Dokumen Tervalidasi
-</a>
-
-<a href="<?= base_url('admin/dokumen-tidak-tervalidasi') ?>"
-   class="px-4 py-2 rounded hover:bg-white/10 transition
-   <?= service('uri')->getSegment(2) == 'dokumen-tidak-tervalidasi' ? 'bg-white/20 font-semibold' : '' ?>">
-   Dokumen Tidak Tervalidasi
-</a>
-
-
-
-    </div>
-</div>
-
 <!-- Manajemen Log Aktivitas -->
 <div 
     x-data="{

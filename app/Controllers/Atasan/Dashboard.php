@@ -7,7 +7,6 @@ use App\Models\UserModel;
 use App\Models\TahunAnggaranModel;
 use App\Models\TwModel;
 use App\Models\PicModel;
-use App\Models\DokumenModel;
 use App\Models\NotificationModel;
 
 class Dashboard extends BaseController
@@ -37,48 +36,7 @@ class Dashboard extends BaseController
         $totalPicAktif = $picModel
             ->where('user_id', $userId)
             ->countAllResults();
-
-        // 5. Hitung status dokumen yang harus diverifikasi ATASAN berdasarkan unit/jurusan
-$dokumenModel = new DokumenModel();
-
-// Ambil Unit Atasan (bidang_id == unit_prodi AND unit_jurusan)
-$unitAtasan = $atasan['bidang_id'];
-
-// Pending (dokumen staff menunggu kaprodi/kajur)
-$pending = $dokumenModel
-    ->groupStart()
-        ->where('status', 'pending_kaprodi')
-        ->where('unit_asal_id', $unitAtasan)
-    ->groupEnd()
-    ->orGroupStart()
-        ->where('status', 'pending_kajur')
-        ->where('unit_jurusan_id', $unitAtasan)
-    ->groupEnd()
-    ->countAllResults();
-
-// Approved (sudah disetujui sampai akhir)
-$approved = $dokumenModel
-    ->where('status', 'archived')
-    ->groupStart()
-        ->where('unit_asal_id', $unitAtasan)
-        ->orWhere('unit_jurusan_id', $unitAtasan)
-    ->groupEnd()
-    ->countAllResults();
-
-// Rejected (dikembalikan staff)
-$rejected = $dokumenModel
-    ->groupStart()
-        ->where('status', 'rejected_kaprodi')
-        ->where('unit_asal_id', $unitAtasan)
-    ->groupEnd()
-    ->orGroupStart()
-        ->where('status', 'rejected_kajur')
-        ->where('unit_jurusan_id', $unitAtasan)
-    ->groupEnd()
-    ->countAllResults();
-
-
-        // 6. Notifikasi unread
+     // 6. Notifikasi unread
         $notifModel = new NotificationModel();
         $notifikasi = $notifModel
             ->where('user_id', $userId)
@@ -91,9 +49,6 @@ $rejected = $dokumenModel
             'tahunAktif'      => $tahunAktif,
             'twAktif'         => $twAktif,
             'totalPicAktif'   => $totalPicAktif,
-            'pending'         => $pending,
-            'approved'        => $approved,
-            'rejected'        => $rejected,
             'notifikasi'      => $notifikasi,
         ]);
     }

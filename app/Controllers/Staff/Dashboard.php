@@ -7,7 +7,6 @@ use App\Models\TahunAnggaranModel;
 use App\Models\TwModel;
 use App\Models\PicModel;
 use App\Models\PengukuranModel;
-use App\Models\DokumenModel;
 use App\Models\NotificationModel;
 
 class Dashboard extends BaseController
@@ -40,14 +39,6 @@ class Dashboard extends BaseController
         //     ->where('user_id', $userId)
         //     ->where('progress <', 100)
         //     ->countAllResults();
-
-        // 5. Dokumen Perlu Revisi
-        $dokumenModel = new DokumenModel();
-        $dokumenRevisi = $dokumenModel
-            ->where('created_by', $userId)
-            ->whereIn('status', ['rejected_kaprodi', 'rejected_kajur'])
-            ->countAllResults();
-
         // 6. Notifikasi Unread
         $notifModel = new NotificationModel();
         $notifikasi = $notifModel
@@ -61,7 +52,6 @@ class Dashboard extends BaseController
             'twAktif'               => $twAktif,
             'totalPicAktif'         => $totalPicAktif,
             // 'indikatorBelumSelesai' => $indikatorBelumSelesai,
-            'dokumenRevisi'         => $dokumenRevisi,
             'notifikasi'            => $notifikasi,
         ]);
     }

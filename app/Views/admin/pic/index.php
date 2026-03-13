@@ -237,7 +237,7 @@
                                     <span class="block font-bold text-slate-800 group-hover:text-blue-900 transition-colors leading-tight mb-1">
                                         <?= esc($p['nama_indikator']) ?>
                                     </span>
-                                    <span class="text-[10px] text-slate-400 font-bold tracking-wider">ID: #<?= esc($p['id']) ?></span>
+
                                 </div>
                             </td>
                             <td class="p-5">

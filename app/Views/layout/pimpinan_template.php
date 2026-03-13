@@ -197,13 +197,7 @@ function fileUpload() {
     <svg class="sidebar-icon"><use href="#chart-pie"/></svg>
     <span>Pengukuran Kinerja</span>
 </a>
-
-<!-- DOKUMEN -->
-<a href="<?= base_url('pimpinan/dokumen') ?>"
-   class="sidebar-link <?= service('uri')->getSegment(2)=='dokumen' ? 'active':'' ?>">
-    <svg class="sidebar-icon"><use href="#folder"/></svg>
-    <span>Dokumen</span>
-</a>
+<!-- PROFIL -->
     <a href="<?= base_url('pimpinan/profile') ?>"
        class="sidebar-link <?= service('uri')->getSegment(2)=='profile' ? 'active':'' ?>">
         <svg class="sidebar-icon"><use href="#user"/></svg>

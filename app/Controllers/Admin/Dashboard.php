@@ -10,10 +10,8 @@ use App\Models\TahunAnggaranModel;
 use App\Models\TwModel;
 use App\Models\IndikatorModel;
 use App\Models\PengukuranModel;
-use App\Models\DokumenModel;
-use App\Models\PengajuanKategoriModel;
 use App\Models\NotificationModel;
-use App\Models\KategoriDokumenModel;
+
 
 
 class Dashboard extends BaseController
@@ -34,7 +32,7 @@ class Dashboard extends BaseController
         $twModel         = new TwModel();
         $indikatorModel  = new IndikatorModel();
         $pengukuranModel = new PengukuranModel();
-        $dokumenModel    = new DokumenModel();
+        
 
         $userId = session('user_id');
 
@@ -98,27 +96,6 @@ $persentaseProgres = $totalIndikator > 0
  * E. KATEGORI DOKUMEN (ADMIN)
  * =============================== */
 
-$pengajuanKategoriModel = new PengajuanKategoriModel();
-$kategoriDokumenModel   = new KategoriDokumenModel();
-
-// 1️⃣ Pengajuan Baru (staff → admin, belum diproses)
-$dokumenPending = $pengajuanKategoriModel
-    ->where('status', 'pending')
-    ->countAllResults();
-
-// 2️⃣ Dokumen Tervalidasi (kategori resmi)
-$dokumenValid = $kategoriDokumenModel
-    ->where('status', 'aktif')
-    ->countAllResults();
-
-// 3️⃣ Dokumen Tidak Tervalidasi
-// (belum disetujui ATAU ditolak)
-$dokumenTidakTervalidasi = $kategoriDokumenModel
-    ->whereIn('status', ['pending', 'rejected'])
-    ->countAllResults();
-
-
-
         /* ===============================
          * F. NOTIFIKASI
          * =============================== */
@@ -148,10 +125,6 @@ $dokumenTidakTervalidasi = $kategoriDokumenModel
             'indikator_terisi'       => $indikatorTerisi,
             'indikator_belum_terisi' => $indikatorBelumTerisi,
             'persentase_progres'     => $persentaseProgres,
-
-            'dokumen_pending'            => $dokumenPending,
-            'dokumen_valid'              => $dokumenValid,
-            'dokumen_tidak_tervalidasi'  => $dokumenTidakTervalidasi,
 
             'notifications'    => $notifications,
             'unreadCount'      => $unreadCount,

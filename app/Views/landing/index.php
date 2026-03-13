@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KINETRACK – Sistem e-Kinerja & Manajemen Dokumen Polban</title>
+  <title>KINETRACK – Sistem e-Kinerja</title>
 
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -65,13 +65,13 @@
         <div class="reveal">
             <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full mb-6">
                 <span class="w-2 h-2 bg-green-400 rounded-full animate-ping"></span>
-                <span class="text-xs font-bold tracking-widest uppercase">E-Performance Integration v2.0</span>
+                <span class="text-xs font-bold tracking-widest uppercase">E-Kinerja</span>
             </div>
             <h1 class="text-5xl md:text-6xl font-black leading-[1.1] mb-8">
                 Pantau <span class="text-polbanOrange underline decoration-4 underline-offset-8">Indikator</span> Kinerja Secara Akurat.
             </h1>
             <p class="text-lg text-slate-300 mb-10 leading-relaxed max-w-lg">
-                Sistem pengelolaan SAKIP terpadu untuk Jurusan dan Prodi. Dari penetapan PIC hingga validasi dokumen triwulan dalam satu platform.
+                Sistem pengelolaan Kinerja terpadu untuk Jurusan dan Prodi. 
             </p>
             <div class="flex flex-wrap gap-4">
                 <a href="<?= base_url('login') ?>" class="bg-white text-polbanBlue px-8 py-4 rounded-xl font-black shadow-2xl hover:bg-slate-100 transition-all">
@@ -161,42 +161,42 @@
 <section id="alur" class="py-24 bg-slate-900 text-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-20 reveal">
-            <h2 class="text-3xl md:text-4xl font-black mb-6">Hierarki Persetujuan Dokumen</h2>
-            <p class="text-slate-400">Alur verifikasi berjenjang untuk memastikan keabsahan bukti dukung kinerja.</p>
+            <h2 class="text-3xl md:text-4xl font-black mb-6">Alur Pengukuran Kinerja</h2>
+            <p class="text-slate-400">Siklus pemantauan dan evaluasi capaian target organisasi secara periodik.</p>
         </div>
 
         <div class="relative flex flex-col md:flex-row items-start justify-between gap-8 reveal">
-            <div class="hidden md:block absolute top-12 left-0 w-full h-1 bg-gradient-to-r from-polbanOrange via-blue-500 to-green-500 opacity-20"></div>
+            <div class="hidden md:block absolute top-12 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-blue-500 to-emerald-500 opacity-20"></div>
             
             <div class="relative z-10 w-full md:w-1/4">
-                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 h-full">
-                    <span class="text-xs font-black text-polbanOrange uppercase">Tahap 1</span>
-                    <h4 class="font-bold my-2">Pengajuan Staff</h4>
-                    <p class="text-xs text-slate-400">Staff mengunggah file (Pribadi/Unit/Publik) berdasarkan kategori admin.</p>
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 h-full hover:border-orange-500/50 transition-colors">
+                    <span class="text-xs font-black text-orange-500 uppercase tracking-wider">Tahap 1</span>
+                    <h4 class="font-bold my-2 text-lg">Penugasan PIC</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">Admin mengatur Manajemen Triwulan (Lock/Unlock) dan menetapkan indikator kinerja kepada PIC terkait.</p>
                 </div>
             </div>
 
             <div class="relative z-10 w-full md:w-1/4">
-                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 h-full">
-                    <span class="text-xs font-black text-blue-400 uppercase">Tahap 2</span>
-                    <h4 class="font-bold my-2">Verifikasi Kaprodi</h4>
-                    <p class="text-xs text-slate-400">Ketua Prodi meninjau. Jika ditolak, kembali ke Staff untuk revisi.</p>
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 h-full hover:border-blue-500/50 transition-colors">
+                    <span class="text-xs font-black text-blue-400 uppercase tracking-wider">Tahap 2</span>
+                    <h4 class="font-bold my-2 text-lg">Pelaporan Capaian</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">Staff atau Atasan (PIC) menginput realisasi, progres, kendala, dan strategi tindak lanjut pada triwulan yang aktif.</p>
                 </div>
             </div>
 
             <div class="relative z-10 w-full md:w-1/4">
-                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 h-full">
-                    <span class="text-xs font-black text-purple-400 uppercase">Tahap 3</span>
-                    <h4 class="font-bold my-2">Validasi Kajur</h4>
-                    <p class="text-xs text-slate-400">Persetujuan akhir oleh Ketua Jurusan untuk masuk ke database Arsip.</p>
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 h-full hover:border-purple-500/50 transition-colors">
+                    <span class="text-xs font-black text-purple-400 uppercase tracking-wider">Tahap 3</span>
+                    <h4 class="font-bold my-2 text-lg">Monitoring Visual</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">Sistem mengolah data menjadi Grafik Kinerja untuk membandingkan target vs realisasi secara tahunan dan triwulanan.</p>
                 </div>
             </div>
 
             <div class="relative z-10 w-full md:w-1/4">
-                <div class="bg-green-600 p-6 rounded-2xl h-full shadow-lg shadow-green-500/20">
-                    <span class="text-xs font-black text-white uppercase">Selesai</span>
-                    <h4 class="font-bold my-2">Arsip Terpusat</h4>
-                    <p class="text-xs text-green-100 font-medium">Dokumen tervalidasi & dapat diakses sesuai jenis (Publik/Unit).</p>
+                <div class="bg-emerald-600 p-6 rounded-2xl h-full shadow-lg shadow-emerald-500/20 group hover:bg-emerald-500 transition-all">
+                    <span class="text-xs font-black text-emerald-100 uppercase tracking-wider">Selesai</span>
+                    <h4 class="font-bold my-2 text-lg">Evaluasi & Arahan</h4>
+                    <p class="text-xs text-emerald-50 font-medium leading-relaxed">Pimpinan memberikan rekomendasi strategis yang dapat langsung dilihat oleh PIC untuk tindak lanjut periode berikutnya.</p>
                 </div>
             </div>
         </div>
@@ -204,50 +204,71 @@
 </section>
 
 <section id="peran" class="py-24 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16 reveal">
-            <h2 class="text-3xl font-black text-polbanBlue mb-4">Aksesibilitas Multi-Role</h2>
+            <h2 class="text-3xl font-black text-slate-900 mb-4">Aksesibilitas Multi-Role</h2>
             <div class="h-1 w-20 bg-polbanOrange mx-auto rounded-full"></div>
+            <p class="text-slate-500 mt-4 max-w-2xl mx-auto text-sm">Pembagian hak akses yang terintegrasi untuk memastikan transparansi dan akuntabilitas kinerja di setiap level organisasi.</p>
         </div>
 
-        <div class="grid lg:grid-cols-3 gap-6">
-            <div class="p-6 border-2 border-slate-100 rounded-3xl reveal">
-                <h4 class="text-xl font-black text-polbanBlue mb-4 flex items-center gap-2">
-                    <i data-lucide="settings" class="w-5 h-5"></i> Admin Utama
-                </h4>
-                <ul class="space-y-3 text-sm font-medium text-slate-600">
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanOrange shrink-0 mt-0.5"></i> Manajemen Tahun & Anggaran</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanOrange shrink-0 mt-0.5"></i> Pengaturan Sasaran & Indikator</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanOrange shrink-0 mt-0.5"></i> Kendali Triwulan (Lock/Unlock)</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanOrange shrink-0 mt-0.5"></i> Log Aktivitas Menyeluruh</li>
-                </ul>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="p-8 border-2 border-blue-600 bg-blue-50/30 rounded-3xl reveal relative overflow-hidden group hover:bg-blue-600 transition-all duration-300">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/20 group-hover:text-white transition-colors">
+                        <i data-lucide="crown" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-black text-blue-700 mb-4 group-hover:text-white transition-colors">Pimpinan</h4>
+                    <ul class="space-y-3 text-sm font-medium text-slate-600 group-hover:text-blue-50 transition-colors">
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5 group-hover:text-white"></i> Memberikan Rekomendasi</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5 group-hover:text-white"></i> Evaluasi Seluruh PIC</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5 group-hover:text-white"></i> Pemantauan Capaian Global</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="p-6 border-2 border-slate-100 rounded-3xl bg-polbanBlue/5 reveal">
-                <h4 class="text-xl font-black text-polbanBlue mb-4 flex items-center gap-2">
-                    <i data-lucide="user-check" class="w-5 h-5"></i> Atasan (Kajur/Kaprodi)
-                </h4>
-                <ul class="space-y-3 text-sm font-medium text-slate-600">
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanBlue shrink-0 mt-0.5"></i> Monitoring Progres PIC</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanBlue shrink-0 mt-0.5"></i> Pengukuran (100% Report)</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanBlue shrink-0 mt-0.5"></i> Pantau Log Aktivitas Pribadi</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanBlue shrink-0 mt-0.5"></i> Verifikasi Dokumen Kinerja</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanBlue shrink-0 mt-0.5"></i> Dashboard Performa Unit</li>
-                </ul>
+            <div class="p-8 border-2 border-slate-200 bg-slate-50/50 rounded-3xl reveal relative overflow-hidden group hover:bg-slate-800 transition-all duration-300">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-slate-200 text-slate-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/10 group-hover:text-white transition-colors">
+                        <i data-lucide="settings" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-black text-slate-800 mb-4 group-hover:text-white transition-colors">Admin Utama</h4>
+                    <ul class="space-y-3 text-sm font-medium text-slate-600 group-hover:text-slate-300 transition-colors">
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 shrink-0 mt-0.5 group-hover:text-white"></i> Manajemen Tahun Anggaran</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 shrink-0 mt-0.5 group-hover:text-white"></i> Kendali Lock/Unlock Data</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 shrink-0 mt-0.5 group-hover:text-white"></i> Audit Log Menyeluruh</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="p-6 border-2 border-slate-100 rounded-3xl reveal">
-                <h4 class="text-xl font-black text-polbanBlue mb-4 flex items-center gap-2">
-                    <i data-lucide="user" class="w-5 h-5"></i> Pelaksana (Staff)
-                </h4>
-                <ul class="space-y-3 text-sm font-medium text-slate-600">
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanOrange shrink-0 mt-0.5"></i> Input Realisasi & Kendala</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanOrange shrink-0 mt-0.5"></i> Unggah File Dukung (Multilevel)</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanOrange shrink-0 mt-0.5"></i> Pengukuran (100% Report)</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanOrange shrink-0 mt-0.5"></i> Pantau Log Aktivitas Pribadi</li>
-                    <li class="flex items-start gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-polbanOrange shrink-0 mt-0.5"></i> Pengajuan Dokumen Kategori Resmi</li>
-                </ul>
+            <div class="p-8 border-2 border-indigo-600 bg-indigo-50/30 rounded-3xl reveal relative overflow-hidden group hover:bg-indigo-600 transition-all duration-300">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/20 group-hover:text-white transition-colors">
+                        <i data-lucide="user-check" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-black text-indigo-700 mb-4 group-hover:text-white transition-colors">Atasan</h4>
+                    <ul class="space-y-3 text-sm font-medium text-slate-600 group-hover:text-indigo-50 transition-colors">
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5 group-hover:text-white"></i> Monitoring Progres PIC</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5 group-hover:text-white"></i> Verifikasi Dokumen Kerja</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5 group-hover:text-white"></i> Dashboard Performa Unit</li>
+                    </ul>
+                </div>
             </div>
+
+            <div class="p-8 border-2 border-emerald-600 bg-emerald-50/30 rounded-3xl reveal relative overflow-hidden group hover:bg-emerald-600 transition-all duration-300">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/20 group-hover:text-white transition-colors">
+                        <i data-lucide="user" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-black text-emerald-700 mb-4 group-hover:text-white transition-colors">Pelaksana</h4>
+                    <ul class="space-y-3 text-sm font-medium text-slate-600 group-hover:text-emerald-50 transition-colors">
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 group-hover:text-white"></i> Input Realisasi & Kendala</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 group-hover:text-white"></i> Unggah File Pendukung</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 group-hover:text-white"></i> Laporan Pengukuran</li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
