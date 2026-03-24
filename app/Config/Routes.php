@@ -115,18 +115,7 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
 
     // ACTIVITY LOG
     $routes->get('activity-logs', 'Admin\ActivityLogController::index');
-    $routes->get('activity-logs/archive', 'Admin\ActivityLogArchiveController::index');
-    $routes->post('activity-logs/archive/backup', 'Admin\ActivityLogArchiveController::backup');
-    $routes->post('activity-logs/archive/restore', 'Admin\ActivityLogArchiveController::restore');
-    $routes->get('activity-logs/schedule', 'Admin\ActivityLogScheduleController::index');
-    $routes->post('activity-logs/schedule', 'Admin\ActivityLogScheduleController::update');
-    $routes->get('activity-logs/backup', 'Admin\ActivityLogBackupController::index');
-    $routes->post('activity-logs/backup/run', 'Admin\ActivityLogBackupController::backup');
-    $routes->post('activity-logs/backup/restore', 'Admin\ActivityLogBackupController::restore');
-    $routes->get('activity-logs/cleanup', 'Admin\LogCleanupController::index');
-    $routes->post('activity-logs/cleanup/run', 'Admin\LogCleanupController::run');
-    $routes->get('activity-logs/backup/download/(:any)', 'Admin\ActivityLogBackupController::download/$1');
-    $routes->get('activity-logs/reminder', 'Admin\ActivityLogReminderController::index');
+    
 
     $routes->post('users/delete/(:num)', 'Admin\User::delete/$1');
 

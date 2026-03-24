@@ -145,6 +145,19 @@ $seg3 = $segments[2] ?? null;
     </svg>
     Dashboard
 </a>
+
+<!-- Log Aktivitas (Single Menu) -->
+<a href="<?= base_url('admin/activity-logs') ?>"
+   class="w-full flex items-center gap-3 px-6 py-3 rounded hover:bg-white/10 transition
+   <?= ($seg2 === 'activity-logs') ? 'bg-white/20 font-semibold' : '' ?>">
+
+    <svg class="sidebar-icon text-white" fill="none" stroke="currentColor">
+        <use href="#clipboard-list" />
+    </svg>
+
+    <span class="flex-1 text-left">Log Aktivitas</span>
+</a>
+
         <!-- Manajemen Users -->
         <div 
             x-data="{
@@ -319,7 +332,7 @@ $seg3 = $segments[2] ?? null;
         <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2"/>
     </symbol>
 </svg>
-<!-- Manajemen Log Aktivitas -->
+
 <div 
     x-data="{
         open: JSON.parse(localStorage.getItem('dropdownLog')) ?? false,
@@ -330,71 +343,8 @@ $seg3 = $segments[2] ?? null;
     }"
     x-init="$watch('open', v => localStorage.setItem('dropdownLog', v))"
 >
-    <!-- Menu Induk -->
-    <button @click="toggle()"
-        class="w-full flex items-center gap-3 px-6 py-3 rounded hover:bg-white/10 transition
-        <?= ($seg2 === 'activity-logs') ? 'bg-white/20 font-semibold' : '' ?>">
-        
-        <svg class="sidebar-icon text-white" fill="none" stroke="currentColor">
-            <use href="#clipboard-list" />
-        </svg>
 
-        <span class="flex-1 text-left">Manajemen Log Aktivitas</span>
 
-        <svg :class="open ? 'rotate-90' : ''"
-            class="w-4 h-4 transition-transform text-white" fill="none" stroke="currentColor">
-            <path stroke-width="2" d="M6 9l6 6 6-6"/>
-        </svg>
-    </button>
-
-    <!-- Sub Menu -->
-    <div x-show="open" x-transition class="ml-10 flex flex-col mt-1 space-y-1">
-
-        <!-- Log Aktif -->
-        <a href="<?= base_url('admin/activity-logs') ?>"
-           class="px-4 py-2 rounded hover:bg-white/10 transition
-           <?= ($seg2 === 'activity-logs' && $seg3 === null) ? 'bg-white/20 font-semibold' : '' ?>">
-            Log Aktif
-        </a>
-
-        <!-- Penjadwalan -->
-        <a href="<?= base_url('admin/activity-logs/schedule') ?>"
-           class="px-4 py-2 rounded hover:bg-white/10 transition
-           <?= ($seg3 === 'schedule') ? 'bg-white/20 font-semibold' : '' ?>">
-            Log Schedule
-        </a>
-
-        <!-- Log Arsip -->
-        <a href="<?= base_url('admin/activity-logs/archive') ?>"
-           class="px-4 py-2 rounded hover:bg-white/10 transition
-           <?= ($seg3 === 'archive') ? 'bg-white/20 font-semibold' : '' ?>">
-            Log Arsip
-        </a>
-
-        
-
-        <!-- Backup & Restore -->
-        <a href="<?= base_url('admin/activity-logs/backup') ?>"
-           class="px-4 py-2 rounded hover:bg-white/10 transition
-           <?= ($seg3 === 'backup') ? 'bg-white/20 font-semibold' : '' ?>">
-            Log Backup & Restore
-        </a>
-
-        <!-- System Reminder -->
-<a href="<?= base_url('admin/activity-logs/reminder') ?>"
-   class="px-4 py-2 rounded hover:bg-white/10 transition
-   <?= ($seg3 === 'reminder') ? 'bg-white/20 font-semibold' : '' ?>">
-    System Reminder
-</a>
-
-        <!-- Cleanup -->
-        <a href="<?= base_url('admin/activity-logs/cleanup') ?>"
-           class="px-4 py-2 rounded hover:bg-red-500/20 text-red-300 hover:text-red-200 transition
-           <?= ($seg3 === 'cleanup') ? 'bg-red-500/30 font-semibold' : '' ?>">
-            Log Pembersihan 
-        </a>
-
-    </div>
 </div>
 
 <!-- Profil -->
