@@ -291,21 +291,6 @@ $routes->group('admin/grafik', ['filter' => 'auth'], function($routes) {
     $routes->get('data-indikator/(:num)', 'Admin\GrafikKinerja::dataIndikator/$1');
 });
 
-// STAFF
-$routes->group('staff/grafik', ['filter' => 'auth'], function($routes) {
-    $routes->get('/', 'Staff\GrafikKinerja::index');
-    $routes->get('data-indikator/(:num)', 'Staff\GrafikKinerja::dataIndikator/$1');
-    $routes->get('triwulan/(:num)', 'Staff\GrafikKinerja::triwulan/$1');
-});
-
-
-
-// ATASAN
-$routes->group('atasan/grafik', ['filter' => 'auth'], function($routes) {
-    $routes->get('/', 'Atasan\GrafikKinerja::index');
-    $routes->get('data-indikator/(:num)', 'Atasan\GrafikKinerja::dataIndikator/$1');
-    $routes->get('triwulan/(:num)', 'Atasan\GrafikKinerja::triwulan/$1');
-});
 
 
 $routes->get('badge/pengukuran', 'BadgeController::pengukuran');

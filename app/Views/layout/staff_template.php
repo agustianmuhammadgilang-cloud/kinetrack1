@@ -220,15 +220,6 @@ function fileUpload() {
     </span>
 </a>
 
-<!-- GRAFIK KINERJA -->
-<a href="<?= base_url('staff/grafik') ?>"
-   class="sidebar-link <?= service('uri')->getSegment(2)=='grafik' ? 'active':'' ?>">
-    <svg class="sidebar-icon"><use href="#chart-bar"/></svg>
-    <span>Grafik Kinerja</span>
-</a>
-
-
-
     <!-- PROFIL -->
     <a href="<?= base_url('staff/profile') ?>"
        class="sidebar-link <?= service('uri')->getSegment(2)=='profile' ? 'active':'' ?>">
