@@ -35,17 +35,21 @@
       background-size: 40px 40px;
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body class="bg-slate-50 text-slate-900 font-sans">
 
 <nav class="fixed top-0 w-full z-50 glass-nav border-b border-slate-200">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-        <div class="bg-polbanBlue p-2 rounded-lg shadow-inner">
-            <i data-lucide="activity" class="text-white w-6 h-6"></i>
-        </div>
-        <span class="font-black text-2xl tracking-tighter text-polbanBlue uppercase">Kine<span class="text-polbanOrange">track</span></span>
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center transition-all duration-300" id="nav-container">
+    <div class="flex items-center gap-4">
+        <img src="<?= base_url('img/Logo No Name.png'); ?>" alt="Logo POLBAN" class="h-10 w-auto object-contain">
+        
+        <div class="h-6 w-px bg-slate-300 hidden sm:block"></div>
+
+        <span class="font-black text-2xl tracking-tighter text-polbanBlue uppercase">
+            Kine<span class="text-polbanOrange">track</span>
+        </span>
     </div>
 
     <div class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-600">
@@ -65,7 +69,7 @@
         <div class="reveal">
             <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full mb-6">
                 <span class="w-2 h-2 bg-green-400 rounded-full animate-ping"></span>
-                <span class="text-xs font-bold tracking-widest uppercase">E-Kinerja</span>
+                <span class="text-xs font-bold tracking-widest uppercase">KineTrack</span>
             </div>
             <h1 class="text-5xl md:text-6xl font-black leading-[1.1] mb-8">
                 Pantau <span class="text-polbanOrange underline decoration-4 underline-offset-8">Indikator</span> Kinerja Secara Akurat.
@@ -276,18 +280,24 @@
 <footer class="bg-slate-950 py-20 text-white border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-3 gap-12 items-center text-center md:text-left">
+            
             <div class="space-y-4">
-                <div class="bg-white p-3 rounded-2xl inline-block shadow-xl shadow-white/5">
-                    <i data-lucide="activity" class="text-polbanBlue w-8 h-8"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-black tracking-tighter italic">KINE<span class="text-polbanOrange">TRACK</span></h2>
-                    <p class="text-slate-500 text-sm mt-2 leading-relaxed">
-                        Sistem Informasi e-Kinerja & Manajemen Dokumen Terintegrasi. 
-                        Mewujudkan transparansi dan akuntabilitas di lingkungan Politeknik Negeri Bandung.
-                    </p>
-                </div>
+            <div class="inline-block">
+                <img src="<?= base_url('img/Logo No Name.png'); ?>" 
+                    alt="Logo POLBAN" 
+                    class="h-16 w-auto object-contain">
             </div>
+            
+            <div class="flex flex-col">
+                <span class="font-black text-2xl tracking-tighter uppercase leading-none">
+                    <span class="text-polbanBlue">Kine</span><span class="text-polbanOrange">track</span>
+                </span>
+                <p class="text-slate-500 text-sm mt-4 leading-relaxed">
+                    Sistem Informasi e-Kinerja & Manajemen Dokumen Terintegrasi. 
+                    Mewujudkan transparansi dan akuntabilitas di lingkungan Politeknik Negeri Bandung.
+                </p>
+            </div>
+        </div>
 
             <div class="flex flex-col items-center gap-4">
                 <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Tautan Resmi</h4>
@@ -296,9 +306,10 @@
                        class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center hover:bg-polbanBlue hover:-translate-y-1 transition-all shadow-lg group">
                         <i data-lucide="globe" class="w-5 h-5 text-slate-300 group-hover:text-white"></i>
                     </a>
-                    <a href="https://www.instagram.com/politekniknegeribandung?igsh=MTc3bXdvNHRyY3VweA==" target="_blank" title="Instagram Polban"
-                       class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center hover:bg-pink-600 hover:-translate-y-1 transition-all shadow-lg group">
-                        <i data-lucide="instagram" class="w-5 h-5 text-slate-300 group-hover:text-white"></i>
+                    
+                    <a href="https://www.instagram.com/politekniknegeribandung/" target="_blank" title="Instagram Polban"
+                    class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center hover:bg-[#E1306C] hover:-translate-y-1 transition-all shadow-lg group">
+                        <i class="fa-brands fa-instagram text-xl text-slate-300 group-hover:text-white"></i>
                     </a>
                 </div>
             </div>

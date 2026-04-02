@@ -215,7 +215,9 @@ public function index()
                 ->select('users.*, jabatan.nama_jabatan, bidang.nama_bidang')
                 ->join('jabatan', 'jabatan.id = users.jabatan_id', 'left')
                 ->join('bidang', 'bidang.id = users.bidang_id', 'left')
-                ->where('users.role !=', 'admin') // hanya staff dan atasan
+                ->where('users.role !=', 'admin')
+                ->where('users.role !=', 'pimpinan')
+                // hanya staff dan atasan
                 ->findAll()
         );
     }

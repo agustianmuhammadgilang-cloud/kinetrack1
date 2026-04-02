@@ -242,7 +242,13 @@ document.addEventListener("DOMContentLoaded", function() {
         if (s === "%" || s === "unit" || s === "dokumentasi") {
             targetPkInput.readOnly = false;
             targetPkInput.classList.remove("input-readonly");
-            hintPK.innerText = "Info: Total TW harus sinkron dengan PK.";
+            
+            if (mode === "akumulatif") {
+                hintPK.innerText = "Total TW harus sama dengan PK.";
+            } else {
+                hintPK.innerText = "TW4 harus sama dengan PK dan tidak boleh turun.";
+            }
+
             twInputs.forEach(i => { i.removeAttribute("max"); i.step = "0.01"; });
         } else {
             targetPkInput.readOnly = false;
@@ -254,36 +260,60 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // --- REVALIDATION & RENDER LOGIC (Fungsi internal Anda dipertahankan) ---
     function gatherValidation() {
-        const vals = twInputs.map(i => {
-            const raw = i.value;
-            if (raw === "" || raw === null) return null;
-            const n = Number(raw);
-            return isFinite(n) ? n : null;
-        });
-        const pkRaw = targetPkInput.value;
-        const pk = (pkRaw === "" || pkRaw === null) ? null : Number(pkRaw);
-        const result = { overLimit: [], decreasing: [], sumMismatch: null, finalMismatch: null };
+    const vals = twInputs.map(i => {
+        const raw = i.value;
+        if (raw === "" || raw === null) return null;
+        const n = Number(raw);
+        return isFinite(n) ? n : null;
+    });
 
-        if (mode === "non") {
-            if (pk !== null && !isNaN(pk)) {
-                const sum = vals.reduce((acc, v) => acc + (v ?? 0), 0);
-                if (Math.abs(sum - pk) > 1e-9) {
-                    const indices = vals.map((v, idx) => v !== null ? idx : -1).filter(i => i >= 0);
-                    result.sumMismatch = { sum, pk, indices };
-                }
-            }
-        } else {
-            for (let i = 1; i < vals.length; i++) {
-                const prev = vals[i-1], cur = vals[i];
-                if (prev !== null && cur !== null && cur < prev) result.decreasing.push({from: i-1, to: i});
-            }
-            const tw4 = vals[3];
-            if (pk !== null && !isNaN(pk)) {
-                if (tw4 === null || Math.abs(tw4 - pk) > 1e-9) result.finalMismatch = { tw4: tw4 === null ? null : tw4, pk };
+    const pkRaw = targetPkInput.value;
+    const pk = (pkRaw === "" || pkRaw === null) ? null : Number(pkRaw);
+
+    const result = {
+        decreasing: [],
+        sumMismatch: null,
+        finalMismatch: null
+    };
+
+    if (mode === "akumulatif") {
+        // ✅ AKUMULATIF → TOTAL HARUS = PK
+
+        if (pk !== null && !isNaN(pk)) {
+            const sum = vals.reduce((acc, v) => acc + (v ?? 0), 0);
+
+            if (Math.abs(sum - pk) > 1e-9) {
+                const indices = vals
+                    .map((v, idx) => v !== null ? idx : -1)
+                    .filter(i => i >= 0);
+
+                result.sumMismatch = { sum, pk, indices };
             }
         }
-        return { vals, result, pk };
+
+    } else {
+        // ✅ NON AKUMULATIF → HARUS NAIK
+
+        for (let i = 1; i < vals.length; i++) {
+            const prev = vals[i-1], cur = vals[i];
+
+            if (prev !== null && cur !== null && cur < prev) {
+                result.decreasing.push({ from: i-1, to: i });
+            }
+        }
+
+        // ✅ TW4 HARUS = PK
+        const tw4 = vals[3];
+
+        if (pk !== null && !isNaN(pk)) {
+            if (tw4 === null || Math.abs(tw4 - pk) > 1e-9) {
+                result.finalMismatch = { tw4, pk };
+            }
+        }
     }
+
+    return { vals, result, pk };
+}
 
     function revalidateAndRender() {
         const { vals, result, pk } = gatherValidation();

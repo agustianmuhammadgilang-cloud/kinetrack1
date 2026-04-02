@@ -7,22 +7,27 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        polban: {
-                            navy: '#002855',
-                            lightnav: '#003d80',
-                            orange: '#FF6B00',
-                            gold: '#FF9900'
-                        }
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    // Menggunakan nama variabel yang kita panggil di class HTML
+                    polbanBlue: '#1D2F83',   // Biru Tua Resmi Polban
+                    polbanOrange: '#F58025', // Oranye Resmi Polban
+                    polbanDark: '#121B4A',
+                    polbanLight: '#F8FAFC',
+                    
+                    // Jika kamu masih ingin menyimpan warna lama sebagai cadangan
+                    polban: {
+                        navy: '#002855',
+                        orange: '#FF6B00',
                     }
                 }
             }
         }
-    </script>
+    }
+</script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
@@ -60,17 +65,26 @@
 
     <div class="w-full md:w-[45%] p-8 md:p-12 flex flex-col justify-center relative bg-white z-10">
 
-        <div class="mb-8 flex items-center gap-3">
-            <div class="w-10 h-10 bg-polban-navy rounded-lg flex items-center justify-center shadow-lg shadow-blue-900/20">
-                <i class="ph-fill ph-chart-line text-polban-orange text-2xl"></i>
-            </div>
-            <span class="text-2xl font-bold text-polban-navy tracking-tight">
-                POLBAN<span class="text-polban-orange">e-KINETRACK</span>
-            </span>
-        </div>
+<div class="mb-10 flex items-center gap-4">
+    <img src="<?= base_url('img/Logo No Name.png'); ?>" 
+         alt="Logo POLBAN" 
+         class="h-12 w-auto object-contain">
+    
+    <div class="h-8 w-[1.5px] bg-slate-200"></div>
+
+    <div class="flex flex-col">
+        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] leading-none mb-1">
+            POLITEKNIK NEGERI BANDUNG
+        </span>
+        
+        <span class="font-black text-2xl tracking-tighter uppercase leading-none">
+            <span class="text-polbanBlue">Kine</span><span class="text-polbanOrange">track</span>
+        </span>
+    </div>
+</div>
 
         <div class="mb-8">
-            <h1 class="text-3xl font-bold text-slate-800 mb-2">Selamat Datang Pegawai!</h1>
+            <h1 class="text-3xl font-bold text-slate-800 mb-2">Selamat Datang</h1>
             <p class="text-slate-500 text-sm">Silakan masuk</p>
         </div>
 

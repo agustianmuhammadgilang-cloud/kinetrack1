@@ -96,6 +96,39 @@ $data['indikator'] = $this->model
             ->with('error', 'Nama indikator sudah ada pada sasaran dan tahun yang sama');
     }
 
+    $mode = $this->request->getPost('mode');
+
+    $tw1 = (float)$this->request->getPost('target_tw1');
+    $tw2 = (float)$this->request->getPost('target_tw2');
+    $tw3 = (float)$this->request->getPost('target_tw3');
+    $tw4 = (float)$this->request->getPost('target_tw4');
+    $pk  = (float)$this->request->getPost('target_pk');
+
+    // ===== VALIDASI MODE =====
+    if ($mode === 'akumulatif') {
+        $sum = $tw1 + $tw2 + $tw3 + $tw4;
+
+        if ($sum != $pk) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Total TW harus sama dengan PK');
+        }
+    }
+
+    if ($mode === 'non') {
+        if ($tw2 < $tw1 || $tw3 < $tw2 || $tw4 < $tw3) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'TW tidak boleh menurun');
+        }
+
+        if ($tw4 != $pk) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'TW4 harus sama dengan PK');
+        }
+    }
+
     // ===== INSERT DATA (LOGIKA LAMA TETAP) =====
     $this->model->insert([
         'sasaran_id'     => $sasaranId,
