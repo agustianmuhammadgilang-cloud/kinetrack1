@@ -252,9 +252,9 @@
                     </div>
                     <h4 class="text-xl font-black text-indigo-700 mb-4 group-hover:text-white transition-colors">Atasan</h4>
                     <ul class="space-y-3 text-sm font-medium text-slate-600 group-hover:text-indigo-50 transition-colors">
-                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5 group-hover:text-white"></i> Monitoring Progres PIC</li>
-                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5 group-hover:text-white"></i> Verifikasi Dokumen Kerja</li>
-                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5 group-hover:text-white"></i> Dashboard Performa Unit</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 group-hover:text-white"></i> Input Realisasi & Kendala</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 group-hover:text-white"></i> Unggah File Pendukung</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 group-hover:text-white"></i> Laporan Pengukuran</li>
                     </ul>
                 </div>
             </div>
@@ -264,7 +264,7 @@
                     <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-white/20 group-hover:text-white transition-colors">
                         <i data-lucide="user" class="w-6 h-6"></i>
                     </div>
-                    <h4 class="text-xl font-black text-emerald-700 mb-4 group-hover:text-white transition-colors">Pelaksana</h4>
+                    <h4 class="text-xl font-black text-emerald-700 mb-4 group-hover:text-white transition-colors">Staff</h4>
                     <ul class="space-y-3 text-sm font-medium text-slate-600 group-hover:text-emerald-50 transition-colors">
                         <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 group-hover:text-white"></i> Input Realisasi & Kendala</li>
                         <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 group-hover:text-white"></i> Unggah File Pendukung</li>
