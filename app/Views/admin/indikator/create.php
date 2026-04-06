@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (mode === "akumulatif") {
                 hintPK.innerText = "Total TW harus sama dengan PK.";
             } else {
-                hintPK.innerText = "TW4 harus sama dengan PK dan tidak boleh turun.";
+                hintPK.innerText = "";
             }
 
             twInputs.forEach(i => { i.removeAttribute("max"); i.step = "0.01"; });
